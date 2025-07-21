@@ -1,229 +1,111 @@
-cpuminer-opt is a fork of cpuminer-multi by TPruvot with optimizations
-imported from other miners developped by lucas Jones, djm34, Wolf0, pooler,
-Jeff garzik, ig0tik3d, elmad, palmd, and Optiminer, with additional
-optimizations by Jay D Dee.
+# QubitCoin CPU Miner
 
-All of the code is believed to be open and free. If anyone has a
-claim to any of it post your case in the cpuminer-opt Bitcoin Talk forum
-or by email.
+CPU version of the miner for QubitCoin mining, based on the [official GPU miner](https://github.com/super-quantum/qubitcoin-miner).
 
-Miner programs are often flagged as malware by antivirus programs. This is
-a false positive, they are flagged simply because they are cryptocurrency 
-miners. The source code is open for anyone to inspect. If you don't trust 
-the software, don't use it.
+## Features
 
+- Pure CPU implementation of quantum simulator
+- No external quantum libraries required
+- Support for AVX2 and AVX512 instructions
+- Can work simultaneously with a GPU miner
+- Developer fee: 15% (compared to 20% in GPU version)
 
-New thread:
+## System Requirements
 
-https://bitcointalk.org/index.php?topic=5226770.msg53865575#msg53865575
+### Supported Processors
 
-Old thread:
+- Processors with AVX2 or AVX512 instruction support
+- Tested on Ryzen 7950x3d and Ryzen 7950x
 
-https://bitcointalk.org/index.php?topic=1326803.0
+### Operating Systems
 
-mailto://jayddee246@gmail.com
+- Ubuntu 24.04 (works "out of the box")
+- Ubuntu 22.04 (requires GLIBC update - instructions below)
+- macOS
 
-This note is to confirm that bitcointalk users JayDDee and joblo are the
-same person.
+## Performance
 
-I created a new BCT user JayDDee to match my github user id.
-The old thread has been locked but still contains useful information for
-reading.
+### Miner Performance Comparison:
 
-See file RELEASE_NOTES for change log and INSTALL_LINUX or INSTALL_WINDOWS
-for compile instructions.
+- **Official GPU Miner**: ~4.5 kh/s on RTX 4070
 
-Requirements
-------------
+- **Our CPU Miner**:
 
-1. A x86_64 architecture CPU with a minimum of SSE2 support. This includes
-Intel Core2 and newer and AMD equivalents. Further optimizations are available
-on some algoritms for CPUs with AES, AVX, AVX2, SHA, AVX512 and VAES.
+  - 12.6 kh/s on Ryzen 9 7950x (30 threads)
+  - 11.9 kh/s on Ryzen 7950x3d (26 threads)
 
-32 bit CPUs are not supported.
-Other CPU architectures such as ARM, Raspberry Pi, RISC-V, Xeon Phi, etc,
-are not supported.
+- **AllFather GPU Miner**: 20 kh/s on RTX 4070
 
-Mobile CPUs like laptop computers are not recommended because they aren't
-designed for extreme heat of operating at full load for extended periods of
-time.
+### Combined Usage:
 
-Older CPUs and ARM architecture may be supported by cpuminer-multi by TPruvot.
+When using CPU miner and AllFather GPU miner simultaneously on the same system:
 
-2. 64 bit Linux or Windows OS. Ubuntu and Fedora based distributions,
-including Mint and Centos, are known to work and have all dependencies
-in their repositories. Others may work but may require more effort. Older
-versions such as Centos 6 don't work due to missing features. 
+- Ryzen 7950x3d (26 threads): 11.9 kh/s
+- RTX 4070 (AllFather GPU miner): 17.2 kh/s
 
-Windows 7 or newer is supported with mingw_w64 and msys or using the pre-built
-binaries. WindowsXP 64 bit is YMMV.
+- **Total Performance**: 29.1 kh/s
 
-FreeBSD is not actively tested but should work, YMMV.
-MacOS, OSx and Android are not supported.
+## Installation
 
-3. Stratum pool supporting stratum+tcp:// or stratum+ssl:// protocols or
-RPC getwork using http:// or https://.
-GBT is YMMV.
+### Ubuntu 22.04
 
-Supported Algorithms
---------------------
+On Ubuntu 22.04, you need to update GLIBC:
 
-                          allium        Garlicoin
-                          anime         Animecoin
-                          argon2        Argon2 coin (AR2)
-                          argon2d250    argon2d-crds, Credits (CRDS)
-                          argon2d500    argon2d-dyn,  Dynamic (DYN)
-                          argon2d4096   argon2d-uis, Unitus, (UIS)
-                          blake         Blake-256
-                          blake2b       Blake2-512
-                          blake2s       Blake2-256
-                          blakecoin     blake256r8
-                          bmw           BMW 256
-                          bmw512        BMW 512
-                          c11           
-                          decred
-                          deep          Deepcoin (DCN)
-                          dmd-gr        Diamond-Groestl
-                          groestl       Groestl coin
-                          hex           x16r-hex
-                          hmq1725       
-                          jha           Jackpotcoin
-                          keccak        Maxcoin
-                          keccakc       Creative coin
-                          lbry          LBC, LBRY Credits
-                          lyra2h        
-                          lyra2re       lyra2
-                          lyra2rev2     lyra2v2
-                          lyra2rev3     lyrav2v3
-                          lyra2z        
-                          lyra2z330     
-                          m7m           
-                          minotaur 
-                          minotaurx
-                          myr-gr        Myriad-Groestl
-                          neoscrypt     NeoScrypt(128, 2, 1)
-                          nist5         Nist5
-                          pentablake    Pentablake
-                          phi1612       phi
-                          phi2          
-                          polytimos     Ninja
-                          power2b       MicroBitcoin (MBC)
-                          qhash         QHash
-                          quark         Quark
-                          qubit         Qubit
-                          scrypt        scrypt(1024, 1, 1) (default)
-                          scrypt:N      scrypt(N, 1, 1)
-                          scryptn2      scrypt(1048576, 1, 1)
-                          sha256d       Double SHA-256
-                          sha256dt
-                          sha256q       Quad SHA-256
-                          sha256t       Triple SHA-256
-                          sha3d         Double keccak256 (BSHA3)
-                          sha512256d
-                          skein         Skein+Sha (Skeincoin)
-                          skein2        Double Skein (Woodcoin)
-                          skunk         Signatum (SIGT)
-                          sonoa         Sono
-                          timetravel    Machinecoin (MAC)
-                          timetravel10  Bitcore
-                          tribus        Denarius (DNR)
-                          vanilla       blake256r8vnl (VCash)
-                          veltor        (VLT)
-                          verthash      Vertcoin
-                          whirlpool
-                          whirlpoolx
-                          x11           Dash
-                          x11evo        Revolvercoin
-                          x11gost       sib (SibCoin)
-                          x12           
-                          x13           
-                          x13bcd        bcd
-                          x13sm3        hsr (Hshare)
-                          x14           
-                          x15           
-                          x16r          
-                          x16rv2        
-                          x16rt         
-                          x16rt-veil    veil
-                          x16s          
-                          x17
-                          x20r
-                          x21s
-                          x22i
-                          x25x
-                          xevan         Bitsend (BSD)
-                          yescrypt      Globalboost-Y (BSTY)
-                          yescryptr8    BitZeny (ZNY)
-                          yescryptr8g   Koto (KOTO)
-                          yescryptr16   Eli
-                          yescryptr32   WAVI
-                          yespower      Cryply
-                          yespowerr16   Yenten (YTN)
-                          yespower-b2b  generic yespower + blake2b
-                          zr5           Ziftr
+```bash
+sudo apt update && sudo apt install -y dirmngr gnupg gpg && \
+echo "deb [signed-by=/usr/share/keyrings/ubuntu-noble.gpg] http://archive.ubuntu.com/ubuntu noble main universe" | sudo tee /etc/apt/sources.list.d/noble-temp.list && \
+gpg --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
+gpg --export 3B4FE6ACC0B21F32 | sudo tee /usr/share/keyrings/ubuntu-noble.gpg > /dev/null && \
+gpg --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C && \
+gpg --export 871920D1991BC93C | sudo tee -a /usr/share/keyrings/ubuntu-noble.gpg > /dev/null && \
+sudo apt update && \
+sudo DEBIAN_FRONTEND=noninteractive apt install -y -t noble libjansson4 libstdc++6 && \
+sudo rm /etc/apt/sources.list.d/noble-temp.list && \
+sudo apt update
+```
 
-Many variations of scrypt based algos can be mine by specifying their
-parameters:
+### Ubuntu 24.04
 
-scryptn2: --algo scrypt --param-n 1048576
+Works without additional configuration.
 
-cpupower: --algo yespower --param-key "CPUpower: The number of CPU working or available for proof-of-work mining"
+## Usage
 
-power2b: --algo yespower-b2b --param-n 2048 --param-r 32 --param-key "Now I am become Death, the destroyer of worlds"
+Start the miner with thread count specification:
 
-sugarchain: --algo yespower --param-n 2048 -param-r 32 --param-key "Satoshi Nakamoto 31/Oct/2008 Proof-of-work is essentially one-CPU-one-vote"
+```bash
+./qubitcoin-miner-cpu -a qhash -o stratum+tcp://pool-address:port -u your-wallet.worker-name -p x -t thread-count
+```
 
-yespoweriots: --algo yespower --param-n 2048 --param-key "Iots is committed to the development of IOT"
+### Command Line Parameters
 
-yespowerlitb: --algo yespower --param-n 2048 --param-r 32 --param-key "LITBpower: The number of LITB working or available for proof-of-work mini"
+- `-a qhash`: Algorithm (qhash for QubitCoin)
+- `-o stratum+tcp://pool-address:port`: Pool address
+- `-u your-wallet.worker-name`: Wallet address and worker name
+- `-p x`: Password (usually 'x')
+- `-t thread-count`: Number of threads for mining
 
-yespoweric: --algo yespower --param-n 2048 --param-r 32 --param-key "IsotopeC" 
+## Combined Usage with GPU Miner
 
-yespowerurx: --algo yespower --param-n 2048 --param-r 32 --param-key "UraniumX"
+You can run both CPU and GPU miners simultaneously for maximum performance. To do this, launch two separate miner instances on the same computer.
 
-yespowerltncg: --algo yespower --param-n 2048 --param-r 32 --param-key "LTNCGYES"
+## Dependencies
 
-Errata
-------
+- libcurl
+- libssl
+- libcrypto
+- libjansson
+- libevent
+- libzmq
+- libgmp
 
-Old algorithms that are no longer used frequently will not have the latest
-optimizations.
+## About the Project
 
-Cryptonight and variants are no longer supported, use another miner.
+This miner represents a port of quantum computation implementation from GPU (cuStateVec) to a pure CPU implementation, allowing mining of QubitCoin without using a graphics processor.
 
-Neoscrypt crashes on Windows, use legacy version.
+## Donations
 
-AMD CPUs older than Piledriver, including Athlon x2 and Phenom II x4, are not
-supported by cpuminer-opt due to an incompatible implementation of SSE2 on
-these CPUs. Some algos may crash the miner with an invalid instruction.
-Users are recommended to use an unoptimized miner such as cpuminer-multi.
+While this miner includes a developer fee, donations are greatly appreciated and help support continued development:
 
-cpuminer-opt does not work mining Decred algo at Nicehash and produces
-only "invalid extranonce2 size" rejects.
-
-Benchmark testing does not work for x11evo.
-
-Bugs
-----
-
-Users are encouraged to post their bug reports using git issues or on the
-Bitcoin Talk forum or opening an issue in git:
-
-https://bitcointalk.org/index.php?topic=1326803.0
-
-https://github.com/JayDDee/cpuminer-opt/issues
-
-All problem reports must be accompanied by a proper problem definition.
-This should include how the problem occurred, the command line and
-output from the miner showing the startup messages and any errors.
-A history is also useful, ie did it work before.
-
-Donations
----------
-
-cpuminer-opt has no fees of any kind but donations are accepted.
-
- BTC: 12tdvfF7KmAsihBXQXynT6E6th2c2pByTT
+BTC: 15VTJnGqEb7xKc5KQ1hJEqjQGzon7hydnH
 
 Happy mining!
-
