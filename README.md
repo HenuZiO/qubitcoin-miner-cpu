@@ -47,9 +47,33 @@ When using CPU miner and AllFather GPU miner simultaneously on the same system:
 
 ## Installation
 
+1. **Create directory and download miner:**
+
+```bash
+mkdir -p ~/qubitcoin-miner && cd ~/qubitcoin-miner
+```
+
+```bash
+wget https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.0/qubitcoin-miner-cpu.tar.gz
+```
+
+```bash
+tar -xvf qubitcoin-miner-cpu.tar.gz && rm -rf qubitcoin-miner-cpu.tar.gz
+```
+
+```bash
+sudo chmod +x ./qubitcoin-miner-cpu
+```
+
+2. **Install dependencies:**
+
+```bash
+sudo apt-get update && sudo apt-get install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils python3 libevent-dev libboost-dev libsqlite3-dev libminiupnpc-dev libnatpmp-dev libzmq3-dev systemtap-sdt-dev
+```
+
 ### Ubuntu 22.04
 
-On Ubuntu 22.04, you need to update GLIBC:
+On Ubuntu 22.04, you also need to update GLIBC:
 
 ```bash
 sudo apt update && sudo apt install -y dirmngr gnupg gpg && \
@@ -66,14 +90,14 @@ sudo apt update
 
 ### Ubuntu 24.04
 
-Works without additional configuration.
+Works without additional configuration after installing dependencies.
 
-## Usage
+## Usage Example
 
 Start the miner with thread count specification:
 
 ```bash
-./qubitcoin-miner-cpu -a qhash -o stratum+tcp://pool-address:port -u your-wallet.worker-name -p x -t thread-count
+./qubitcoin-miner-cpu -a qhash -o qubitcoin.luckypool.io:8611 -u your-wallet.worker -t thread-count
 ```
 
 ### Command Line Parameters
