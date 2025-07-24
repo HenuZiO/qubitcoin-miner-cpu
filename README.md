@@ -94,10 +94,40 @@ Works without additional configuration after installing dependencies.
 
 ## Usage Example
 
-Start the miner with thread count specification:
+**Important:** This is a CLI (command-line interface) solution that runs in the console. It cannot be launched from HiveOS interface as it's not a full-featured custom miner.
+
+### Running with Screen (Recommended)
+
+To keep the miner running after disconnecting from remote session, use `screen`:
+
+1. **Start a new screen session:**
+
+```bash
+screen -S qubitcoin-miner-cpu
+```
+
+2. **Start the miner:**
 
 ```bash
 ./qubitcoin-miner-cpu -a qhash -o qubitcoin.luckypool.io:8611 -u your-wallet.worker -t thread-count
+```
+
+3. **Detach from screen session (miner continues running):**
+
+```
+Ctrl + A, then D
+```
+
+4. **Reattach to screen session:**
+
+```bash
+screen -r qubitcoin-miner-cpu
+```
+
+5. **Check active screen sessions:**
+
+```bash
+screen -ls
 ```
 
 ### Command Line Parameters
@@ -130,6 +160,10 @@ This miner represents a port of quantum computation implementation from GPU (cuS
 
 While this miner includes a developer fee, donations are greatly appreciated and help support continued development:
 
-BTC: 15VTJnGqEb7xKc5KQ1hJEqjQGzon7hydnH
+**BTC:**
+
+```
+15VTJnGqEb7xKc5KQ1hJEqjQGzon7hydnH
+```
 
 Happy mining!
