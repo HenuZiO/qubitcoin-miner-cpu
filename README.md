@@ -92,9 +92,68 @@ sudo apt update
 
 Works without additional configuration after installing dependencies.
 
-## Usage Example
+## HiveOS Setup
 
-**Important:** This is a CLI (command-line interface) solution that runs in the console. It cannot be launched from HiveOS interface as it's not a full-featured custom miner.
+Now you can easily run the miner through HiveOS web interface using custom miner package!
+
+**All dependencies (including GLIBC) will be automatically installed before miner startup. No manual installation required. Compatible with HiveOS running Ubuntu 22.04.**
+
+### Flight Sheet Configuration
+
+**Basic Settings:**
+
+- **Coin:** QTC
+- **Wallet:** Create QTC wallet address and use it
+- **Pool:** Configure in miner
+- **Miner:** Custom
+
+**Miner Configuration (Setup miner config):**
+
+- **Installation URL:** `https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.0/qubitcoin_miner_cpu_hiveos_custom.tar.gz`
+- **Hash Algorithm:** Leave empty
+- **Wallet and worker template:** `%WAL%.%WORKER_NAME%`
+- **Pool URL:** `qubitcoin.luckypool.io:8611`
+- **Pass:** `x` or leave empty
+- **Extra config arguments:** Number of threads for mining, e.g., `-t 16` or `-t 30`
+
+### Ready-to-Use Flight Sheet JSON
+
+You can import this JSON configuration directly into HiveOS:
+
+```json
+{
+  "name": "QTC | LuckyPool",
+  "isFavorite": false,
+  "items": [
+    {
+      "coin": "QTC",
+      "pool_ssl": false,
+      "wal_id": 10869310,
+      "dpool_ssl": false,
+      "miner": "custom",
+      "miner_alt": "qubitcoin_miner_cpu_hiveos_custom",
+      "miner_config": {
+        "url": "qubitcoin.luckypool.io:8611",
+        "pass": "x",
+        "miner": "qubitcoin_miner_cpu_hiveos_custom",
+        "template": "%WAL%.%WORKER_NAME%",
+        "install_url": "https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.0/qubitcoin_miner_cpu_hiveos_custom.tar.gz",
+        "user_config": "-t 16"
+      },
+      "pool_geo": []
+    }
+  ]
+}
+```
+
+**Note:** Don't forget to:
+
+1. Replace the wallet ID (`wal_id`) with your actual wallet ID from HiveOS
+2. Adjust the thread count in `user_config` (e.g., `-t 30` for 30 threads)
+
+## Manual CLI Usage (Alternative Method)
+
+**Note:** If you prefer manual setup or don't use HiveOS, you can run the miner directly via command line.
 
 ### Running with Screen (Recommended)
 
