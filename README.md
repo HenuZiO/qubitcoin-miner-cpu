@@ -63,8 +63,6 @@ Now you can easily run the miner through HiveOS or mmpOS web interface using uni
 - **Pool:** Configure in miner
 - **Miner:** Custom
 
-<img width="1108" height="270" alt="image" src="https://github.com/user-attachments/assets/8cbdc95f-85b3-4de1-8a61-18b8095356f5" />
-
 **Miner Configuration (Setup miner config):**
 
 - **Installation URL:** `https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.1/qubitcoin_miner_cpu_custom.tar.gz`
@@ -73,8 +71,6 @@ Now you can easily run the miner through HiveOS or mmpOS web interface using uni
 - **Pool URL:** `qubitcoin.luckypool.io:8611`
 - **Pass:** `x` or leave empty
 - **Extra config arguments:** Number of threads for mining, e.g., `-t 16` or `-t 30`
-
-<img width="681" height="706" alt="image" src="https://github.com/user-attachments/assets/3b6574ae-feb0-44ab-9b94-264de4ad8989" />
 
 ### Ready-to-Use Flight Sheet JSON
 
