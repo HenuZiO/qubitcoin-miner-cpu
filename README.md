@@ -8,7 +8,8 @@ CPU version of the miner for QubitCoin mining, based on the [official GPU miner]
 - No external quantum libraries required
 - Support for AVX2 and AVX512 instructions
 - Can work simultaneously with a GPU miner
-- Developer fee: 15% (compared to 20% in GPU version)
+- Developer fee: 5%
+- Universal package supports both HiveOS and mmpOS
 
 ## System Requirements
 
@@ -22,6 +23,8 @@ CPU version of the miner for QubitCoin mining, based on the [official GPU miner]
 - Ubuntu 24.04 (works "out of the box")
 - Ubuntu 22.04 (requires GLIBC update - instructions below)
 - macOS
+- HiveOS (fully supported with universal package)
+- mmpOS (fully supported with universal package)
 
 ## Performance
 
@@ -45,11 +48,11 @@ When using CPU miner and AllFather GPU miner simultaneously on the same system:
 
 - **Total Performance**: 29.1 kh/s
 
-## HiveOS Setup
+## HiveOS & mmpOS Setup
 
-Now you can easily run the miner through HiveOS web interface using custom miner package!
+Now you can easily run the miner through HiveOS or mmpOS web interface using universal custom miner package!
 
-**All dependencies (including GLIBC) will be automatically installed before miner startup. No manual installation required. Compatible with HiveOS running Ubuntu 22.04.**
+**All dependencies (including GLIBC) will be automatically installed before miner startup. No manual installation required. Compatible with both HiveOS and mmpOS running Ubuntu 22.04.**
 
 ### Flight Sheet Configuration
 
@@ -64,7 +67,7 @@ Now you can easily run the miner through HiveOS web interface using custom miner
 
 **Miner Configuration (Setup miner config):**
 
-- **Installation URL:** `https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.0/qubitcoin_miner_cpu_hiveos_custom.tar.gz`
+- **Installation URL:** `https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.1/qubitcoin_miner_cpu_custom.tar.gz`
 - **Hash Algorithm:** Leave empty
 - **Wallet and worker template:** `%WAL%.%WORKER_NAME%`
 - **Pool URL:** `qubitcoin.luckypool.io:8611`
@@ -88,13 +91,13 @@ You can import this JSON configuration directly into HiveOS:
       "wal_id": 10869310,
       "dpool_ssl": false,
       "miner": "custom",
-      "miner_alt": "qubitcoin_miner_cpu_hiveos_custom",
+      "miner_alt": "qubitcoin_miner_cpu_custom",
       "miner_config": {
         "url": "qubitcoin.luckypool.io:8611",
         "pass": "x",
-        "miner": "qubitcoin_miner_cpu_hiveos_custom",
+        "miner": "qubitcoin_miner_cpu_custom",
         "template": "%WAL%.%WORKER_NAME%",
-        "install_url": "https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.0/qubitcoin_miner_cpu_hiveos_custom.tar.gz",
+        "install_url": "https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.1/qubitcoin_miner_cpu_custom.tar.gz",
         "user_config": "-t 16"
       },
       "pool_geo": []
@@ -119,7 +122,7 @@ mkdir -p ~/qubitcoin-miner && cd ~/qubitcoin-miner
 ```
 
 ```bash
-wget https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.0/qubitcoin-miner-cpu.tar.gz
+wget https://github.com/HenuZiO/qubitcoin-miner-cpu/releases/download/cpu-1.0.1/qubitcoin-miner-cpu.tar.gz
 ```
 
 ```bash
